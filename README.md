@@ -1,96 +1,55 @@
 # AgroDetect
 
-AgroDetect provides utilities for preparing the PlantVillage image dataset and
-loading it with PyTorch. The current repository focuses on dataset
-preprocessing and data loaders for 38 plant health classes.
+AgroDetect is a plant disease image-classification project built around the
+PlantVillage dataset. The work completed so far establishes the data pipeline
+needed for future model training and evaluation.
 
-## Features
+## Work completed
 
-- Validates and reads class-organized image datasets.
-- Skips corrupted or unsupported image files with warnings.
-- Creates reproducible 70/15/15 train, validation, and test splits.
-- Resizes images to `224x224` and saves them as optimized JPEG files.
-- Provides PyTorch `DataLoader` instances with training augmentation and
-  ImageNet normalization.
+### Dataset preprocessing
 
-## Requirements
+`preprocess_dataset.py` implements the dataset preparation workflow:
 
-Install Python 3.10 or newer, then install the runtime dependencies:
+- Validates that the input contains all 38 expected plant-health classes.
+- Supports both a class-folder dataset root and a PlantVillage directory
+  containing a `train` subdirectory.
+- Detects and skips corrupted images while reporting warnings.
+- Creates reproducible stratified train, validation, and test splits using a
+  70/15/15 ratio.
+- Resizes images to `224x224`, converts them to RGB, and stores them as
+  optimized JPEG files.
+- Generates the class-to-index mapping and project configuration.
 
-```powershell
-python -m pip install torch torchvision pillow
-```
+### PyTorch data loading
 
-## Dataset preparation
+`dataset_loader.py` provides `get_dataloaders`, which creates train,
+validation, and test `DataLoader` instances from the prepared directory
+structure.
 
-The raw dataset must contain one directory for each of the 38 classes. For
-example:
+Training images receive random horizontal flips, rotations, and color jitter.
+Validation and test images use deterministic resizing. All splits are
+converted to tensors and normalized with ImageNet mean and standard deviation
+values.
 
-```text
-PlantVillage/
-├── Apple___Apple_scab/
-│   ├── image001.jpg
-│   └── image002.jpg
-├── Apple___healthy/
-└── ...
-```
+### Dataset metadata
 
-Prepare the dataset with:
+- `config.py` stores the 38 class names, image size, batch size, and dataset
+  paths.
+- `class_indices.json` stores the numeric label assigned to each class.
+- The generated dataset is organized into `train`, `val`, and `test`
+  directories with one subdirectory per class.
 
-```powershell
-python preprocess_dataset.py --raw-dir "C:\data\PlantVillage" --clean-output
-```
+## Current project status
 
-By default, the processed dataset is written to `dataset`. A different output
-directory, or a deterministic split seed, can be provided:
+The repository currently contains the dataset preparation and loading stages
+of the project. Model architecture, training, evaluation, and inference
+components have not yet been added.
 
-```powershell
-python preprocess_dataset.py `
-  --raw-dir "C:\data\PlantVillage" `
-  --output-dir "C:\data\AgroDetect\dataset" `
-  --seed 42
-```
+## Project files
 
-The command also generates `config.py` and `class_indices.json` in the
-repository directory. The generated dataset has this structure:
-
-```text
-dataset/
-├── train/<class-name>/*.jpg
-├── val/<class-name>/*.jpg
-└── test/<class-name>/*.jpg
-```
-
-## Loading the data
-
-Use `get_dataloaders` after preparing the dataset:
-
-```python
-from config import BATCH_SIZE, TEST_DIR, TRAIN_DIR, VAL_DIR
-from dataset_loader import get_dataloaders
-
-train_loader, val_loader, test_loader = get_dataloaders(
-    TRAIN_DIR,
-    VAL_DIR,
-    TEST_DIR,
-    BATCH_SIZE,
-)
-```
-
-Training data uses random horizontal flips, rotations, and color jitter.
-Validation and test data use resizing and ImageNet normalization only.
-
-## Repository layout
-
-| File | Description |
+| File | Purpose |
 | --- | --- |
-| `preprocess_dataset.py` | Validates, splits, resizes, and writes the dataset |
-| `dataset_loader.py` | Builds the train, validation, and test PyTorch loaders |
-| `config.py` | Dataset paths, class names, image size, and batch size |
-| `class_indices.json` | Mapping from class names to numeric labels |
-
-## Notes
-
-The repository does not currently include a model training or inference
-script. The generated `dataset/` directory is intentionally kept separate
-from the source utilities and should not be committed to version control.
+| `preprocess_dataset.py` | Validates, splits, resizes, and exports the dataset |
+| `dataset_loader.py` | Defines preprocessing and PyTorch data loaders |
+| `config.py` | Defines dataset configuration and class metadata |
+| `class_indices.json` | Maps class names to numeric labels |
