@@ -1,6 +1,6 @@
 # AgroDetect
 
-AgroDetect is a plant disease image-classification project built around the
+AgroDetect is a crop disease image-classification project built around the
 PlantVillage dataset. The work completed so far establishes the data pipeline
 needed for future model training and evaluation.
 
