@@ -39,6 +39,12 @@ values.
 - The generated dataset is organized into `train`, `val`, and `test`
   directories with one subdirectory per class.
 
+### Preprocessing metrics
+
+The terminal output from `show_preprocessing.py` is shown below:
+
+![Preprocessing metrics output](docs/images/preprocessing-metrics.png)
+
 ## Current project status
 
 The repository currently contains the dataset preparation and loading stages
@@ -51,5 +57,6 @@ components have not yet been added.
 | --- | --- |
 | `preprocess_dataset.py` | Validates, splits, resizes, and exports the dataset |
 | `dataset_loader.py` | Defines preprocessing and PyTorch data loaders |
+| `show_preprocessing.py` | Displays and saves preprocessing metrics |
 | `config.py` | Defines dataset configuration and class metadata |
 | `class_indices.json` | Maps class names to numeric labels |
