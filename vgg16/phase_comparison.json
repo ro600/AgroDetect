@@ -1,0 +1,19 @@
+{
+  "model": "VGG16",
+  "phase_1": {
+    "name": "Feature extraction",
+    "trainable": "classifier head",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "checkpoint": "c:\\Users\\royaa\\Documents\\GitHub\\AgroDetect\\vgg16\\checkpoints\\phase1_latest.pt"
+  },
+  "phase_2": {
+    "name": "Fine-tuning",
+    "trainable": "full VGG16 network",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "checkpoint": "c:\\Users\\royaa\\Documents\\GitHub\\AgroDetect\\vgg16\\checkpoints\\phase2_latest.pt"
+  },
+  "epochs_completed": 10,
+  "best_validation_loss": 0.6985465207128451
+}

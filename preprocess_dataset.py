@@ -1,11 +1,12 @@
 """Prepare a stratified PlantVillage image dataset for PyTorch training.
 
 Example:
-    python preprocess_dataset.py --raw-dir "C:\\data\\PlantVillage"
+    python preprocess_dataset.py --raw-dir "C:\\data\\PlantVillage" 
 
 The raw directory must contain one subdirectory per class. Images are resized
 to 224x224 and written to train/val/test. ImageNet normalization and training
 augmentation are applied by ``dataset_loader.get_dataloaders`` at load time.
+
 """
 
 from __future__ import annotations
@@ -137,7 +138,10 @@ def prepare_dataset(
     for split, classes in split_files.items():
         for class_name, paths in classes.items():
             for index, source in enumerate(paths):
-                destination = output_dir / split / class_name / f"{index:06d}.jpg"
+                # Encode the source file's original stem in the output name so
+                # that relative paths are unique across splits and filename-based
+                # leakage audits produce no false positives.
+                destination = output_dir / split / class_name / f"{source.stem}_{index:06d}.jpg"
                 _write_image(source, destination)
 
     class_indices = {name: index for index, name in enumerate(class_names)}

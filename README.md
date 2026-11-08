@@ -49,7 +49,9 @@ The terminal output from `show_preprocessing.py` is shown below:
 
 The repository currently contains the dataset preparation and loading stages
 of the project. Model architecture, training, evaluation, and inference
-components have not yet been added.
+components are provided in `vgg16_training.ipynb`. The notebook trains a
+two-phase VGG16 model locally and writes checkpoints, weights, metrics, and
+plots to the `vgg16` directory.
 
 ## Project files
 
@@ -60,3 +62,5 @@ components have not yet been added.
 | `show_preprocessing.py` | Displays and saves preprocessing metrics |
 | `config.py` | Defines dataset configuration and class metadata |
 | `class_indices.json` | Maps class names to numeric labels |
+| `vgg16_training.ipynb` | Local, checkpointed two-phase VGG16 training and evaluation |
+| `train_vgg16.py` | Standalone VGG16 training and evaluation script |

@@ -225,45 +225,45 @@
       "test": 45
     },
     "Tomato___healthy": {
-      "total": 197,
-      "train": 138,
-      "val": 30,
-      "test": 29
+      "total": 1273,
+      "train": 891,
+      "val": 191,
+      "test": 191
     }
   },
   "split_statistics": {
     "train": {
-      "images": 29659,
+      "images": 30412,
       "percentage": 70.0
     },
     "val": {
-      "images": 6356,
+      "images": 6517,
       "percentage": 15.0
     },
     "test": {
-      "images": 6353,
-      "percentage": 14.99
+      "images": 6515,
+      "percentage": 15.0
     }
   },
-  "total_images": 42368,
+  "total_images": 43444,
   "invalid_or_corrupted_outputs": 0,
   "extensions": {
-    ".jpg": 42368
+    ".jpg": 43444
   },
   "dimensions": {
-    "(224, 224)": 42368
+    "(224, 224)": 43444
   },
   "color_modes": {
-    "RGB": 42368
+    "RGB": 43444
   },
-  "total_bytes": 777845771,
-  "average_bytes": 18359,
+  "total_bytes": 803595872,
+  "average_bytes": 18497,
   "smallest_bytes": 3478,
   "largest_bytes": 32598,
-  "relative_path_overlap": {
-    "train/val": 6356,
-    "train/test": 6353,
-    "val/test": 6345
+  "content_hash_overlap": {
+    "train/val": 2,
+    "train/test": 3,
+    "val/test": 0
   },
   "class_indices_entries": 38
 }

@@ -1,0 +1,117 @@
+{
+  "model": "VGG16",
+  "test_accuracy": 0.9545663852647736,
+  "test_f1_macro": 0.9331361450714383,
+  "phase1_best_val_accuracy": 0.10188737148994936,
+  "phase2_best_val_accuracy": 0.9530458800061378,
+  "classes": [
+    "Apple___Apple_scab",
+    "Apple___Black_rot",
+    "Apple___Cedar_apple_rust",
+    "Apple___healthy",
+    "Blueberry___healthy",
+    "Cherry_(including_sour)___Powdery_mildew",
+    "Cherry_(including_sour)___healthy",
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+    "Corn_(maize)___Common_rust_",
+    "Corn_(maize)___Northern_Leaf_Blight",
+    "Corn_(maize)___healthy",
+    "Grape___Black_rot",
+    "Grape___Esca_(Black_Measles)",
+    "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)",
+    "Grape___healthy",
+    "Orange___Haunglongbing_(Citrus_greening)",
+    "Peach___Bacterial_spot",
+    "Peach___healthy",
+    "Pepper,_bell___Bacterial_spot",
+    "Pepper,_bell___healthy",
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy",
+    "Raspberry___healthy",
+    "Soybean___healthy",
+    "Squash___Powdery_mildew",
+    "Strawberry___Leaf_scorch",
+    "Strawberry___healthy",
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Septoria_leaf_spot",
+    "Tomato___Spider_mites Two-spotted_spider_mite",
+    "Tomato___Target_Spot",
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+    "Tomato___Tomato_mosaic_virus",
+    "Tomato___healthy"
+  ],
+  "training_history": {
+    "phase1": {
+      "train_loss": [
+        141.94185132201403,
+        7.201873558846709,
+        7.10151766319581,
+        6.2947429979096805,
+        6.759756630946818
+      ],
+      "train_acc": [
+        0.08841904511377088,
+        0.07566092331974221,
+        0.06997237932395108,
+        0.07506905169012232,
+        0.07072865973957648
+      ],
+      "val_loss": [
+        3.4078547935535592,
+        3.444861021439905,
+        3.5813762899079498,
+        3.512475738390761,
+        4.013531553465401
+      ],
+      "val_acc": [
+        0.09866502992174313,
+        0.10188737148994936,
+        0.0791775356759245,
+        0.10142703698020561,
+        0.09912536443148688
+      ]
+    },
+    "phase2": {
+      "train_loss": [
+        2.262805739123931,
+        1.229652500256071,
+        1.0811145655907848,
+        1.006373080817803,
+        0.9493107851925421,
+        0.9180394674027952,
+        0.8858959984970645
+      ],
+      "train_acc": [
+        0.47050506379060897,
+        0.829672497698277,
+        0.8813955017756149,
+        0.905563593318427,
+        0.9245363672234644,
+        0.9316059450217019,
+        0.9408786005524136
+      ],
+      "val_loss": [
+        1.2280163685200276,
+        0.9684919090802929,
+        0.9851140278110443,
+        0.8550633022677996,
+        0.8794271980799724,
+        0.8396733402291269,
+        0.8429525646125134
+      ],
+      "val_acc": [
+        0.8207764308731011,
+        0.9185207917753567,
+        0.9100813257633881,
+        0.9530458800061378,
+        0.9364738376553629,
+        0.950130428111094,
+        0.9461408623599816
+      ]
+    }
+  }
+}

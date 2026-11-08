@@ -81,15 +81,29 @@ def inspect_dataset(dataset_dir: Path, metrics_path: Path) -> None:
                 invalid.append((path, str(exc)))
 
     split_counts = {split: len(files) for split, files in all_files.items()}
-    relative_paths = {
-        split: {path.relative_to(dataset_dir / split) for path in files}
-        for split, files in all_files.items()
-    }
+    # Content-hash leakage check.
+    # Relative-path comparison is unreliable when splits use an independent
+    # index counter (000000.jpg, 000001.jpg …) restarted per split, because
+    # train/cls/000000.jpg and val/cls/000000.jpg are different source images
+    # that happen to share a relative path.  MD5 hashing compares actual bytes.
+    import hashlib
+
+    def _md5(path: Path) -> str:
+        h = hashlib.md5()
+        with open(path, "rb") as fh:
+            for chunk in iter(lambda: fh.read(65536), b""):
+                h.update(chunk)
+        return h.hexdigest()
+
+    split_hashes: dict[str, dict[str, Path]] = {}
+    for split, files in all_files.items():
+        split_hashes[split] = {_md5(p): p for p in files}
+
     overlaps: dict[str, int] = {}
     for first_index, first_split in enumerate(SPLITS):
-        for second_split in SPLITS[first_index + 1 :]:
-            overlap = relative_paths[first_split] & relative_paths[second_split]
-            overlaps[f"{first_split}/{second_split}"] = len(overlap)
+        for second_split in SPLITS[first_index + 1:]:
+            shared = split_hashes[first_split].keys() & split_hashes[second_split].keys()
+            overlaps[f"{first_split}/{second_split}"] = len(shared)
 
     indices_path = dataset_dir.parent / "class_indices.json"
     indices = json.loads(indices_path.read_text(encoding="utf-8")) if indices_path.exists() else {}
@@ -119,7 +133,7 @@ def inspect_dataset(dataset_dir: Path, metrics_path: Path) -> None:
         "average_bytes": round(sum(sizes) / len(sizes)) if sizes else 0,
         "smallest_bytes": min(sizes) if sizes else 0,
         "largest_bytes": max(sizes) if sizes else 0,
-        "relative_path_overlap": overlaps,
+        "content_hash_overlap": overlaps,
         "class_indices_entries": len(indices),
     }
     metrics_path = metrics_path.resolve()
